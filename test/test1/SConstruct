@@ -1,0 +1,18 @@
+
+import os
+
+env = Environment ( ENV = os.environ )
+
+env.AppendUnique(CPPPATH=['.'])
+
+SOURCE = ['ugui.c', 'ugui_test1.cc']
+
+ROOTLIBS = ['Gui','Core','Cint','RIO','Net','Hist','Graf','Graf3d','Gpad','Tree','Rint','Postscript','Matrix','Physics','MathCore','Thread','pthread','m','dl']
+ROOTSYS = os.getenv('ROOTSYS')
+env.AppendUnique(LIBPATH='%s/lib/root' % ROOTSYS)
+env.AppendUnique(CPPPATH='%s/include' % ROOTSYS)
+env.AppendUnique(CXXFLAGS=['-m64'])
+env.AppendUnique(LINKFLAGS=['-stdlib=libc++'])
+env.AppendUnique(LIBS=ROOTLIBS)
+
+env.Program(target='ugui_test1', source=SOURCE)
